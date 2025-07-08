@@ -1,0 +1,168 @@
+<%- include('./partilas/head') %>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #dcedc8);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .welcome-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-card {
+            display: flex;
+            flex-direction: row;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .welcome-content {
+            flex: 1;
+            padding: 40px 30px;
+            text-align: left;
+        }
+
+        .welcome-content h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+
+        .welcome-content p {
+            color: #333;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            line-height: 1.7;
+        }
+
+        .welcome-content ul {
+            margin-top: 15px;
+            padding-left: 20px;
+            color: #444;
+        }
+
+        .welcome-content ul li {
+            margin-bottom: 8px;
+        }
+
+        .welcome-content .btn {
+            background-color: #2e7d32;
+            color: white;
+            font-size: 1.1rem;
+            padding: 12px 32px;
+            margin-top: 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-content .btn:hover {
+            background-color: #1b5e20;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .welcome-image {
+            flex: 1;
+            background: url('https://www.shutterstock.com/image-illustration/crud-acronym-create-read-update-600nw-2491959959.jpg') center/cover no-repeat;
+            min-height: 360px;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-card {
+                flex-direction: column-reverse;
+            }
+
+            .welcome-image {
+                height: 220px;
+                background-size: contain;
+                background-position: center;
+            }
+
+            .welcome-content {
+                text-align: center;
+            }
+
+            .welcome-content h1 {
+                font-size: 2rem;
+            }
+
+            .welcome-content p,
+            .welcome-content ul {
+                font-size: 1rem;
+            }
+
+            .welcome-content .btn {
+                font-size: 1rem;
+                padding: 10px 28px;
+            }
+        }
+
+        .footer {
+            /* Matches Bootstrap's bg-success */
+            font-family: 'Inter', 'Poppins', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            font-weight: 500;
+            border-top: 1px solid #157347;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('./partilas/nav') %>
+
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h1>Welcome to Employee CRUD Portal</h1>
+                        <p>
+                            CRUD App
+                        </p>
+                        <ul>
+                            <li><strong>Create</strong> new employee records</li>
+                            <li><strong>Read</strong> and review employee data</li>
+                            <li><strong>Update</strong> details anytime</li>
+                            <li><strong>Delete</strong> when no longer needed</li>
+                        </ul>
+                        <a href="/host/crud" class="btn shadow-sm">Get Started</a>
+                    </div>
+                    <div class="welcome-image"></div>
+                </div>
+            </div>
+
+            <%- include('./partilas/addmodal') %>
+                <%- include('./partilas/f') %>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+
+    </html>
