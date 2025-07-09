@@ -66,8 +66,7 @@ exports.postcrud = async (req, res, next) => {
                })
           }
           else {
-               console.log(error)
-               return res.status(500).json({ error: 'Internal server error' });
+               res.status(500).json({ error: 'please try again...' });
           }
      }
 }
@@ -84,17 +83,16 @@ exports.posteditemp = async (req, res, next) => {
      catch (error) {
           if (error.message === 'email is already exist..') {
                emp.find().then((data) => {
-                    res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
+                    return res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
                })
           }
           if(error.message === 'mobile number is already exists..'){
                  emp.find().then((data) => {
-                    res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
+                    return res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
                })
           }
           else{
-               console.log(error)
-               res.status(500).json({ error: 'Internal server error' });
+               res.status(500).json({ error: 'please try again...' });
           }
      }
 }
