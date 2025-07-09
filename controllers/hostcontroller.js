@@ -66,7 +66,7 @@ exports.postcrud = async (req, res, next) => {
                })
           }
           else {
-               res.status(500).json({ error: 'please try again...' });
+               res.status(404).json({ error: 'please try again...' });
           }
      }
 }
@@ -92,7 +92,7 @@ exports.posteditemp = async (req, res, next) => {
                })
           }
           else{
-               res.status(500).json({ error: 'please try again...' });
+               res.status(404).json({ error: 'please try again...' });
           }
      }
 }
