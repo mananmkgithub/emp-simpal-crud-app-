@@ -9,7 +9,6 @@ exports.home = (req, res, next) => {
      })
 }
 
-
 exports.gethome = (req, res, next) => {
      emp.find().then((data) => {
           res.render('uhome', { Pagetitle: "Home", data: data, error: false })
