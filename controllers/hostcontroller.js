@@ -10,8 +10,11 @@ exports.home = (req, res, next) => {
 }
 
 exports.gethome = (req, res, next) => {
-     emp.find().then((data) => {
-          res.render('uhome', { Pagetitle: "Home", data: data, error: false })
+     let page = Number(req.query.page) || 1;
+     let limit = Number(req.query.limit) || 3;
+     let skip = (page - 1) * limit
+     emp.find().skip(skip).limit(limit).then((data) => {
+          res.render('uhome', { Pagetitle: "Home", data: data, error: false, pagenumber: page + 1, limit: limit })
      }).catch((er) => {
           console.log('Not Show Data', er)
      })
@@ -38,21 +41,20 @@ exports.postcrud = async (req, res, next) => {
           let ans = name[0].toUpperCase() + name.slice(1,)
           const Emp = new emp({ name: ans, email, mobile, department, role, Joining })
           await Emp.save()
-          emp.find().then((data) => {
-               return res.render('uhome', { Pagetitle: "emp data", data: data, error:'Employee Added Sucessfully..' })
-          })
+          res.redirect('/host')
      }
      catch (error) {
           if (error.message === 'email is already exist..') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message })
+                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message,error: false, pagenumber:null, limit:null })
                })
           } else if (error.message === 'mobile number is already exists.') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message })
+                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message,error: false, pagenumber:null, limit:null })
                })
           }
           else {
+               console.log(error)
                res.status(500).json({ error: 'Internal server error' });
           }
      }
@@ -66,7 +68,7 @@ exports.posteditemp = async (req, res, next) => {
                runValidators: true, // Run Mongoose validation
           })
           emp.find().then((data) => {
-               return res.render('uhome', { Pagetitle: "emp data", data: data, error:'Employee updated Sucessfully..' })
+               return res.render('uhome', { Pagetitle: "emp data", data: data, error: 'Employee updated Sucessfully..', pagenumber: '', limit:''})
           })
      }
      catch (error) {
@@ -76,7 +78,7 @@ exports.posteditemp = async (req, res, next) => {
                })
           } else if (error.message === 'mobile number is already exists.') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message })
+                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message,pagenumber: '', limit:'' })
                })
           }
           else {
@@ -104,7 +106,6 @@ exports.getsearch = (req, res, next) => {
      let sname = req.body.name
      let ans = sname[0].toUpperCase() + sname.slice(1,)
      emp.findOne({ name: ans }).then((data) => {
-          console.log(data)
           if (data == null) {
                res.render('s', { Pagetitle: "emp not find", v: data, e: false })
           }
