@@ -61,4 +61,3 @@ Run the app
 npm start
 
 
-<img src="/images/Screenshot (358).png" alt="noimage">
