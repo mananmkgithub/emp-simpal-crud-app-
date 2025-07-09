@@ -9,6 +9,17 @@ exports.home = (req, res, next) => {
      })
 }
 
+exports.alldata = async (req, res, next) => {
+     try {
+          let all = await emp.find()
+          return res.render('alldata', { Pagetitle: "all data", data: all})
+     }
+     catch(er){
+          console.log('error:',er)
+          return res.redirect('/host/alldata')
+     }
+}
+
 exports.gethome = (req, res, next) => {
      let page = Number(req.query.page) || 1;
      let limit = Number(req.query.limit) || 3;
@@ -41,16 +52,16 @@ exports.postcrud = async (req, res, next) => {
           let ans = name[0].toUpperCase() + name.slice(1,)
           const Emp = new emp({ name: ans, email, mobile, department, role, Joining })
           await Emp.save()
-          res.redirect('/host')
+          res.redirect('/host/alldata')
      }
      catch (error) {
           if (error.message === 'email is already exist..') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message,error: false, pagenumber:null, limit:null })
+                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message, error: false, pagenumber: null, limit: null })
                })
           } else if (error.message === 'mobile number is already exists.') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message,error: false, pagenumber:null, limit:null })
+                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message, error: false, pagenumber: null, limit: null })
                })
           }
           else {
@@ -68,7 +79,7 @@ exports.posteditemp = async (req, res, next) => {
                runValidators: true, // Run Mongoose validation
           })
           emp.find().then((data) => {
-               return res.render('uhome', { Pagetitle: "emp data", data: data, error: 'Employee updated Sucessfully..', pagenumber: '', limit:''})
+               return res.render('uhome', { Pagetitle: "emp data", data: data, error: 'Employee updated Sucessfully..', pagenumber: '', limit: '' })
           })
      }
      catch (error) {
@@ -78,7 +89,7 @@ exports.posteditemp = async (req, res, next) => {
                })
           } else if (error.message === 'mobile number is already exists.') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message,pagenumber: '', limit:'' })
+                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message, pagenumber: '', limit: '' })
                })
           }
           else {
