@@ -3,166 +3,135 @@
 
     <style>
         body {
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #dcedc8);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            background-color: #ffffff;
         }
 
-        .welcome-section {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 50px 20px;
-            animation: fadeIn 1.2s ease-in;
-        }
+        .hero {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
+.hero .content {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+}
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.hero-text {
+  flex: 1;
+  min-width: 300px;
+}
 
-        .welcome-card {
-            display: flex;
-            flex-direction: row;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(8px);
-            border-radius: 18px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-            overflow: hidden;
-            max-width: 1100px;
-            width: 100%;
-        }
+.hero-text h1 {
+  font-size: 2.6rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+}
 
-        .welcome-content {
-            flex: 1;
-            padding: 40px 30px;
-            text-align: left;
-        }
+.hero-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 15px;
+}
 
-        .welcome-content h1 {
-            font-size: 2.6rem;
-            font-weight: 600;
-            color: #2e7d32;
-        }
+.hero-text .crud-list {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
 
-        .welcome-content p {
-            color: #333;
-            font-size: 1.1rem;
-            margin-top: 15px;
-            line-height: 1.7;
-        }
+.hero-text .crud-list li {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #444;
+}
 
-        .welcome-content ul {
-            margin-top: 15px;
-            padding-left: 20px;
-            color: #444;
-        }
+.hero-text .btn {
+  background-color: #4e54c8;
+  color: white;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
 
-        .welcome-content ul li {
-            margin-bottom: 8px;
-        }
+.hero-text .btn:hover {
+  background-color: #3c42a9;
+  transform: translateY(-2px);
+}
 
-        .welcome-content .btn {
-            background-color: #2e7d32;
-            color: white;
-            font-size: 1.1rem;
-            padding: 12px 32px;
-            margin-top: 30px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
+.hero-img {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
 
-        .welcome-content .btn:hover {
-            background-color: #1b5e20;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
+.hero-img img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
 
-        .welcome-image {
-            flex: 1;
-            background: url('https://www.shutterstock.com/image-illustration/crud-acronym-create-read-update-600nw-2491959959.jpg') center/cover no-repeat;
-            min-height: 360px;
-        }
+@media (max-width: 768px) {
+  .hero .content {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
 
-        @media (max-width: 768px) {
-            .welcome-card {
-                flex-direction: column-reverse;
-            }
+  .hero-text h1 {
+    font-size: 2rem;
+  }
 
-            .welcome-image {
-                height: 220px;
-                background-size: contain;
-                background-position: center;
-            }
+  .hero-text .crud-list {
+    padding-left: 0;
+    list-style-position: inside;
+  }
 
-            .welcome-content {
-                text-align: center;
-            }
+  .hero-text .btn {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
 
-            .welcome-content h1 {
-                font-size: 2rem;
-            }
-
-            .welcome-content p,
-            .welcome-content ul {
-                font-size: 1rem;
-            }
-
-            .welcome-content .btn {
-                font-size: 1rem;
-                padding: 10px 28px;
-            }
-        }
-
-        .footer {
-            /* Matches Bootstrap's bg-success */
-            font-family: 'Inter', 'Poppins', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 0.3px;
-            font-weight: 500;
-            border-top: 1px solid #157347;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
-        }
     </style>
     </head>
 
     <body>
         <%- include('./partilas/nav') %>
-
-            <div class="welcome-section">
-                <div class="welcome-card">
-                    <div class="welcome-content">
-                        <h1>Welcome to Crud App</h1>
-                        <p>
-                            CRUD App
-                        </p>
-                        <ul>
+            <section class="hero">
+                <div class="content">
+                    <div class="hero-text">
+                        <h1>Welcome to EmployeeHub</h1>
+                        <p>Manage employee data efficiently with our intuitive CRUD system:</p>
+                        <ul class="crud-list">
                             <li><strong>Create</strong> new employee records</li>
-                            <li><strong>Read</strong> and review employee data</li>
-                            <li><strong>Update</strong> details anytime</li>
-                            <li><strong>Delete</strong> when no longer needed</li>
+                            <li><strong>Read</strong> detailed employee info</li>
+                            <li><strong>Update</strong> records anytime</li>
+                            <li><strong>Delete</strong> when needed</li>
                         </ul>
-                        <a href="/host/crud" class="btn shadow-sm">Get Started</a>
+                        <a href="/host"><button class="btn">Get Started</button></a>
                     </div>
-                    <div class="welcome-image"></div>
+                    <div class="hero-img">
+                        <img src="https://www.shutterstock.com/image-illustration/crud-acronym-create-read-update-600nw-2491959959.jpg"
+                            alt="CRUD Illustration">
+                    </div>
                 </div>
-            </div>
-
-            <%- include('./partilas/addmodal') %>
-                <%- include('./partilas/f') %>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            </section>
+            <br>
+            <br>
+            <%- include('./partilas/f') %>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
-
     </html>

@@ -9,14 +9,6 @@ exports.home = (req, res, next) => {
      })
 }
 
-exports.getemp = (req, res, next) => {
-     emp.find().then((data) => {
-          res.render('u', { Pagetitle: "emp data", data: data })
-     }).catch((er) => {
-          console.log('Not Show Data', er)
-     })
-}
-
 
 exports.gethome = (req, res, next) => {
      emp.find().then((data) => {
@@ -102,10 +94,10 @@ exports.geteditemp = (req, res, next) => {
 
 exports.getdelete = (req, res, next) => {
      emp.findByIdAndDelete({ _id: req.params.Id }).then(() => {
-          res.redirect('/host/crud')
+          res.redirect('/host')
      }).catch((er) => {
           console.log('not delete id:', er)
-          res.redirect('/host/crud')
+          res.redirect('/host')
      })
 }
 
@@ -113,6 +105,7 @@ exports.getsearch = (req, res, next) => {
      let sname = req.body.name
      let ans = sname[0].toUpperCase() + sname.slice(1,)
      emp.findOne({ name: ans }).then((data) => {
+          console.log(data)
           if (data == null) {
                res.render('s', { Pagetitle: "emp not find", v: data, e: false })
           }

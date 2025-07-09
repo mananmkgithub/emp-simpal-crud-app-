@@ -3,7 +3,6 @@ const host=express.Router()
 
 const hostcontroller=require('../controllers/hostcontroller')
 
-host.get('/crud',hostcontroller.getemp)
 host.get('/',hostcontroller.gethome)
 host.get('/contact',hostcontroller.getcontactpage)
 host.post('/crud',hostcontroller.postcrud)
