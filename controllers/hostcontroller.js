@@ -3,7 +3,7 @@ const contact = require('../model/contact')
 
 exports.home = (req, res, next) => {
      emp.find().then((data) => {
-          res.render('ehome', { Pagetitle: "Home", data: data, error: false })
+          res.render('ehome', { Pagetitle: "Home", data: data, error:false })
      }).catch((er) => {
           console.log('Not Show Data', er)
      })
@@ -12,10 +12,10 @@ exports.home = (req, res, next) => {
 exports.alldata = async (req, res, next) => {
      try {
           let all = await emp.find()
-          return res.render('alldata', { Pagetitle: "all data", data: all})
+          return res.render('alldata', { Pagetitle: "all data", data: all, error: false })
      }
-     catch(er){
-          console.log('error:',er)
+     catch (er) {
+          console.log('error:', er)
           return res.redirect('/host/alldata')
      }
 }
@@ -57,16 +57,17 @@ exports.postcrud = async (req, res, next) => {
      catch (error) {
           if (error.message === 'email is already exist..') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message, error: false, pagenumber: null, limit: null })
+                    return res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
                })
-          } else if (error.message === 'mobile number is already exists.') {
+          }
+          if (error.message === 'mobile number is already exists..') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message, error: false, pagenumber: null, limit: null })
+                    return res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
                })
           }
           else {
                console.log(error)
-               res.status(500).json({ error: 'Internal server error' });
+               return res.status(500).json({ error: 'Internal server error' });
           }
      }
 }
@@ -78,21 +79,21 @@ exports.posteditemp = async (req, res, next) => {
                new: true, // Return the updated document
                runValidators: true, // Run Mongoose validation
           })
-          emp.find().then((data) => {
-               return res.render('uhome', { Pagetitle: "emp data", data: data, error: 'Employee updated Sucessfully..', pagenumber: '', limit: '' })
-          })
+          res.redirect('/host/alldata')
      }
      catch (error) {
           if (error.message === 'email is already exist..') {
-               emp.findById({ _id: req.body.eid }).then((data) => {
-                    res.render('editmodal', { Pagetitle: "emp data", f: data, error: error.message })
-               })
-          } else if (error.message === 'mobile number is already exists.') {
                emp.find().then((data) => {
-                    return res.render('uhome', { Pagetitle: "emp data", data: data, error: error.message, pagenumber: '', limit: '' })
+                    res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
                })
           }
-          else {
+          if(error.message === 'mobile number is already exists..'){
+                 emp.find().then((data) => {
+                    res.render('alldata', { Pagetitle: "all data", data: data, error: error.message })
+               })
+          }
+          else{
+               console.log(error)
                res.status(500).json({ error: 'Internal server error' });
           }
      }
@@ -115,7 +116,8 @@ exports.getdelete = (req, res, next) => {
 
 exports.getsearch = (req, res, next) => {
      let sname = req.body.name
-     let ans = sname[0].toUpperCase() + sname.slice(1,)
+     let t=sname.trim()
+     let ans = t[0].toUpperCase() + t.slice(1,)
      emp.findOne({ name: ans }).then((data) => {
           if (data == null) {
                res.render('s', { Pagetitle: "emp not find", v: data, e: false })
