@@ -12,6 +12,7 @@ A full-stack **Employee Management System** using **Node.js**, **Express.js**, *
 - Delete employee records.
 - Show alert messages after actions using EJS + Bootstrap modal.
 - Responsive design using Bootstrap.
+-pagination added
 
 ## 🛠️ Tech Stack
 

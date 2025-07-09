@@ -22,7 +22,7 @@ exports.alldata = async (req, res, next) => {
 
 exports.gethome = (req, res, next) => {
      let page = Number(req.query.page) || 1;
-     let limit = Number(req.query.limit) || 3;
+     let limit = Number(req.query.limit) || 5;
      let skip = (page - 1) * limit
      emp.find().skip(skip).limit(limit).then((data) => {
           res.render('uhome', { Pagetitle: "Home", data: data, error: false, pagenumber: page + 1, limit: limit })
