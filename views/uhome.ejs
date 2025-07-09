@@ -180,14 +180,13 @@
           <% }) %>
         </tbody>
       </table>
-
       <!-- Pagination -->
         <!-- Pagination -->
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li>
                   <li class="page-item d-flex">
-                    <!-- <input type="hidden" value="<%= pagenumber --  %>"> -->
+                    <input type="hidden" value="<%= pagenumber --  %>">
                     <a class="page-link" href="/host?page=<%= pagenumber-1 %>&limit=5">previous</a>
                     <input type="hidden" value="<%= pagenumber++ %>">
                     <br>
@@ -200,7 +199,8 @@
   </div>
 
   <%- include('./partilas/addmodal') %>
-  <br><br><br><br>
+  <br><br><br><br><br>
+  <br><br>
   <%- include('./partilas/f') %>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
