@@ -1,12 +1,12 @@
 const emp = require('../model/emp')
 const contact = require('../model/contact')
 
-exports.home=(req,res,next)=>{
+exports.home = (req, res, next) => {
      emp.find().then((data) => {
-        res.render('ehome', { Pagetitle: "Home", data: data, error: false })
-    }).catch((er) => {
-        console.log('Not Show Data', er)
-    })
+          res.render('ehome', { Pagetitle: "Home", data: data, error: false })
+     }).catch((er) => {
+          console.log('Not Show Data', er)
+     })
 }
 
 exports.getemp = (req, res, next) => {
@@ -46,8 +46,10 @@ exports.postcrud = async (req, res, next) => {
           const { name, email, mobile, department, role, Joining } = req.body
           let ans = name[0].toUpperCase() + name.slice(1,)
           const Emp = new emp({ name: ans, email, mobile, department, role, Joining })
-          const data = await Emp.save()
-          return res.render('uhome', { Pagetitle: "emp data", data: data, error: false })
+          await Emp.save()
+          emp.find().then((data) => {
+               return res.render('uhome', { Pagetitle: "emp data", data: data, error:'Employee Added Sucessfully..' })
+          })
      }
      catch (error) {
           if (error.message === 'email is already exist..') {
@@ -72,10 +74,12 @@ exports.posteditemp = async (req, res, next) => {
                new: true, // Return the updated document
                runValidators: true, // Run Mongoose validation
           })
-          res.redirect('/host/crud')
+          emp.find().then((data) => {
+               return res.render('uhome', { Pagetitle: "emp data", data: data, error:'Employee updated Sucessfully..' })
+          })
      }
      catch (error) {
-            if (error.message === 'email is already exist..') {
+          if (error.message === 'email is already exist..') {
                emp.findById({ _id: req.body.eid }).then((data) => {
                     res.render('editmodal', { Pagetitle: "emp data", f: data, error: error.message })
                })
@@ -92,7 +96,7 @@ exports.posteditemp = async (req, res, next) => {
 
 exports.geteditemp = (req, res, next) => {
      emp.findById({ _id: req.params.Id }).then((data) => {
-          res.render('editmodal', { Pagetitle: "emp data", f: data, error:false })
+          res.render('editmodal', { Pagetitle: "emp data", f: data, error: false })
      })
 }
 
